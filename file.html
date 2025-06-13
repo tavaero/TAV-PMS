@@ -42,14 +42,25 @@
             color: #555;
         }
 
-        .logo {
+        .logo-bar {
             margin-top: 30px;
-            width: 180px;
-            height: auto;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .logo-bar img {
+            height: 50px;
             background-color: rgba(255, 255, 255, 0.8);
             padding: 8px;
             border-radius: 10px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .logo-bar img:hover {
+            transform: scale(1.05);
         }
 
         @media (max-width: 500px) {
@@ -65,8 +76,8 @@
                 font-size: 16px;
             }
 
-            .logo {
-                width: 140px;
+            .logo-bar img {
+                height: 40px;
             }
         }
     </style>
@@ -75,7 +86,13 @@
     <div class="container">
         <h1>Your file has been downloaded automatically.</h1>
         <p>To view the results, you need to open the PDF file in the archive.</p>
-        <img class="logo" src="https://tavhavalimanlari.com.tr/images/TAV-Airport-International-logo.svg" alt="TAV Logo">
+        
+        <div class="logo-bar">
+            <img src="https://tavhavalimanlari.com.tr/images/TAV-Airport-International-logo.svg" alt="TAV Logo">
+            <img src="https://atu.com.tr/wp-content/uploads/2023/08/ATU-Logo-C%CC%A7erc%CC%A7eveli_page-0001-768x768.jpg" alt="ATU Logo">
+            <img src="https://lh3.googleusercontent.com/proxy/yz1SclzsHmWxi7cYNsYWeHPpOXufu8izj6XaxLj93kxxY2E9tonFUExXqlzVcmVsCaXqqEJ9gYmS5H8bB1m9NgEGoFN11ali5bvqoiBzMV11cYLI" alt="HAVAS Logo">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTug1qy1PlT2nX7mt03gWpE1_jdcFH4pLu06w&s" alt="BTA Logo">
+        </div>
     </div>
 </body>
 </html>
