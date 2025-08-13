@@ -1,20 +1,20 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#0FA47E" />
-  <title>ChatGPT Enterprise — Kurumsal Giriş</title>
+  <title>ChatGPT Enterprise — Sign In</title>
   <style>
     :root{
-      /* Yeni palet: koyu tema + ChatGPT yeşili */
+      /* New palette: dark theme + ChatGPT green */
       --bg:#0b0f0e;
       --bg-soft:#0d1412;
       --panel:#0f1514;
       --text:#e8f1ee;
       --muted:#a3b2ad;
-      --accent:#10A37F;   /* ChatGPT yeşil */
-      --accent-2:#00C389; /* vurgularda gradient için */
+      --accent:#10A37F;   /* ChatGPT green */
+      --accent-2:#00C389; /* for gradient accents */
       --danger:#ff6b6b;
       --ring: rgba(16,163,127,.35);
     }
@@ -33,7 +33,7 @@
       color-scheme: dark;
     }
 
-    /* Arka planda yumuşak çizgili grid */
+    /* Subtle grid background */
     .grid-overlay{
       position:fixed; inset:0; pointer-events:none; opacity:.06;
       background-image: linear-gradient(transparent 23px, #fff 24px), linear-gradient(90deg, transparent 23px, #fff 24px);
@@ -97,19 +97,19 @@
       .logo-spin{ animation: spin 14s linear infinite }
       @keyframes spin{ from{ transform:rotate(0deg)} to{ transform:rotate(360deg)} }
     }
-      /* alt iştirak logo barı */
+      /* affiliates bar */
     .affiliates-bar{
       position:fixed; left:50%; bottom:20px; transform:translateX(-50%);
       display:flex; flex-wrap:wrap; gap:14px; align-items:center; justify-content:center;
       padding:12px 18px; z-index:50;
-      background: rgba(255,255,255,.92); /* Daha açık zemin */
+      background: rgba(255,255,255,.92); /* lighter background */
       border:1px solid rgba(0,0,0,.06);
       border-radius:16px; box-shadow: 0 12px 30px rgba(0,0,0,.35);
       backdrop-filter: blur(4px) saturate(120%);
     }
     .affiliates-bar img{
       height:44px; max-width:180px; object-fit:contain; filter:none; opacity:1;
-      background:#ffffff; /* Logonun arkasında beyaz kart */
+      background:#ffffff; /* white card behind logo */
       border:1px solid rgba(0,0,0,.06);
       box-shadow: 0 2px 6px rgba(0,0,0,.08);
       padding:6px 8px; border-radius:12px; transition: transform .2s ease;
@@ -120,8 +120,7 @@
       .affiliates-bar{ gap:10px; padding:8px 12px }
       .affiliates-bar img{ height:36px; max-width:130px; padding:4px 6px }
     }
-      .affiliates-bar img{ height:34px; max-width:110px; padding:4px }
-    }
+      
   </style>
   <script>
     
@@ -135,56 +134,56 @@
       err.textContent = '';
 
       if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){
-        err.textContent = 'Geçerli bir e‑posta girin.'; return;
+        err.textContent = 'Enter a valid email.'; return;
       }
-      if(password.length < 8){ err.textContent = 'Şifre en az 8 karakter olmalı.'; return; }
+      if(password.length < 8){ err.textContent = 'Password must be at least 8 characters.'; return; }
 
       try{
-        // TODO: Kurum içi endpoint
+        // TODO: Internal endpoint
         // const res = await fetch('/auth/login', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ email, password })});
-        // if(!res.ok) throw new Error('Giriş başarısız');
+        // if(!res.ok) throw new Error('Sign-in failed');
         await new Promise(r=>setTimeout(r, 500));
         // Demo: başarılı sayılıyor
         location.href = '#';
-      }catch(e){ err.textContent = 'Giriş yapılamadı. Lütfen bilgileri kontrol edin.' }
+      }catch(e){ err.textContent = 'Sign-in failed. Please check your details.' }
     }
   </script>
 </head>
 <body>
   <div class="grid-overlay" aria-hidden="true"></div>
 
-  <main class="card" role="main" aria-label="ChatGPT Enterprise giriş kartı">
-    <header class="brand" aria-label="Marka">
+  <main class="card" role="main" aria-label="ChatGPT Enterprise sign-in card">
+    <header class="brand" aria-label="Brand">
       <!-- ChatGPT swirl benzeri SVG (monokrom) -->
       <img class="logo logo-spin" src="https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg" alt="ChatGPT Logo" width="38" height="38" decoding="async" />
       <h1>ChatGPT Enterprise</h1>
     </header>
-    <p class="subtitle">Kurumsal hesabınızla oturum açın</p>
+    <p class="subtitle">Sign in with your corporate account</p>
 
     
 
     
 
-    <section aria-label="E-posta ile giriş">
+    <section aria-label="Email sign-in">
       <form onsubmit="onSubmit(event)">
-        <label for="email">Kurumsal e‑posta</label>
-        <input class="input" id="email" name="email" type="email" placeholder="ad.soyad@firma.com" autocomplete="username" required />
+        <label for="email">Work email</label>
+        <input class="input" id="email" name="email" type="email" placeholder="name.surname@tav.aero" autocomplete="username" required />
 
         <div style="height:10px"></div>
-        <label for="password">Şifre</label>
+        <label for="password">Password</label>
         <input class="input" id="password" name="password" type="password" placeholder="••••••••" autocomplete="current-password" required />
 
         <div id="error" role="alert" aria-live="polite"></div>
         <div style="height:12px"></div>
-        <button class="btn btn-primary" type="submit">Devam et</button>
+        <button class="btn btn-primary" type="submit">Continue</button>
       </form>
     </section>
 
-    <p class="footer">Girişte sorun mu yaşıyorsunuz? <a href="#" style="color:var(--accent); text-decoration:none">BT ile iletişime geçin</a>.</p>
+    <p class="footer">Having trouble signing in? <a href="#" style="color:var(--accent); text-decoration:none">Contact IT</a>.</p>
   </main>
   
-  <!-- İştirak logoları (TAV, ATU, Havaş, BTA) -->
-  <div class="affiliates-bar" aria-label="İştirakler">
+  <!-- Affiliates logos (TAV, ATU, Havaş, BTA) -->
+  <div class="affiliates-bar" aria-label="Affiliates">
     <img src="https://tavhavalimanlari.com.tr/images/TAV-Airport-International-logo.svg" alt="TAV Airports"/>
     <img src="https://atu.com.tr/wp-content/uploads/2023/08/ATU-Logo-C%CC%A7erc%CC%A7eveli_page-0001-768x768.jpg" alt="ATU"/>
     <img src="https://lh3.googleusercontent.com/proxy/yz1SclzsHmWxi7cYNsYWeHPpOXufu8izj6XaxLj93kxxY2E9tonFUExXqlzVcmVsCaXqqEJ9gYmS5H8bB1m9NgEGoFN11ali5bvqoiBzMV11cYLI" alt="Havaş"/>
