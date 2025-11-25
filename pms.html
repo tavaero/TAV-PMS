@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Page Under Construction</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      background: #002B5B; /* Havaş navy blue */
+      font-family: 'Segoe UI', Arial, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #002B5B;
+    }
+
+    .box {
+      background: #E8F2FF; /* Light blue background */
+      padding: 40px;
+      border-radius: 14px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, .25);
+      width: 380px;
+      text-align: center;
+      border: 2px solid #7CC242; /* Havaş green border */
+    }
+
+    .box img {
+      width: 110px;
+      margin-bottom: 16px;
+    }
+
+    .box h2 {
+      color: #7CC242; /* Havaş green */
+      margin: 0 0 16px;
+      font-size: 22px;
+      font-weight: 700;
+    }
+
+    .box p {
+      font-size: 14px;
+      color: #002B5B;
+      opacity: 0.9;
+      margin-top: 10px;
+      line-height: 1.5;
+    }
+
+    .loader {
+      margin: 22px auto;
+      border: 6px solid #cce4ff;
+      border-top: 6px solid #7CC242;
+      border-radius: 50%;
+      width: 48px;
+      height: 48px;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    @media (max-width: 480px) {
+      .box {
+        width: 90%;
+        padding: 30px;
+      }
+      .box img {
+        width: 90px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="box">
+    <img src="https://havas.net/images/icerik/logo.svg" alt="Logo" />
+
+    <h2>Page Under Construction</h2>
+
+    <div class="loader"></div>
+
+    <p>
+      We are currently working on this page to bring you an improved experience.<br>
+      Please check back again soon.
+    </p>
+
+    <p style="font-size:12px; margin-top:20px; opacity:0.7;">
+      © 2025 HAVAŞ is a company of TAV Airports Holding.
+    </p>
+  </div>
+</body>
+</html>
